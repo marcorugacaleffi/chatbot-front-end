@@ -23,7 +23,12 @@ function sendPrompt() {
         },
         body: JSON.stringify({ prompt: userInput })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
     .then(data => {
         const botMessage = document.createElement('div');
         botMessage.className = 'bot-message';
